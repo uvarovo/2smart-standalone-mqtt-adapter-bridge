@@ -319,21 +319,6 @@ module.exports = {
                     }
                 }
             },
-            'call-the-police/call' : {
-                state : {
-                    topic       : 'myhome/dafang/play',
-                    transformer : (value) => {
-
-                        return false;
-                    }
-                },
-                command : {
-                    topic       : 'myhome/dafang/play',
-                    transformer : (value) => {
-                        return '';
-                    }
-                }
-            },
             'leds/yellow' : {
                 state : {
                     topic       : 'myhome/dafang/leds/yellow',
@@ -351,21 +336,31 @@ module.exports = {
                         return 'OFF';
                     }
                 }
+            },
+            'state/motion' : {
+                state : {
+                    topic       : 'myhome/dafang/motion',
+                    transformer : (value) => {
+                        if (value === 'ON') return true;
+
+                        return false;
+                    }
+                }
             }
         }
     },
     deviceConfig : {
         nodes : [
-          {
-                id      : 'call-the-police',
-                name    : 'Call the Police',
+            {
+                id      : 'state',
+                name    : 'State',
                 sensors : [
                     {
-                        id       : 'call',
-                        name     : 'CALL',
+                        id       : 'motion',
+                        name     : 'Motion',
                         dataType : 'boolean',
-                        settable : 'true',
-                        retained : 'false'
+                        settable : 'false',
+                        retained : 'true'
                     }
                 ]
             },
@@ -375,14 +370,14 @@ module.exports = {
                 sensors : [
                     {
                         id       : 'blue',
-                        name     : 'blue',
+                        name     : 'Blue',
                         dataType : 'boolean',
                         settable : 'true',
                         retained : 'true'
                     },
                     {
                         id       : 'yellow',
-                        name     : 'blue',
+                        name     : 'Yellow',
                         dataType : 'boolean',
                         settable : 'true',
                         retained : 'true'
